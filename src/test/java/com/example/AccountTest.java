@@ -39,19 +39,21 @@ public class AccountTest {
         Assert.assertFalse(result);
     }
 
-    @Test
-    public void withdrawReturnsACorrectBalance() {
-        Account account = new Account(100);        
+  @Test
+    public void depositAndWithdrawWorkCorrectly() {
+        Account account = new Account(100);
         account.deposit(50);
-        boolean result = account.withdraw(120);
-        Assert.assertFalse(result);
-        Assert.assertEquals(50, account.getBalance(), epsilon);
+        Assert.assertEquals(50d, account.getBalance(), epsilon);
+
+        account.withdraw(20);
+        Assert.assertEquals(30d, account.getBalance(), epsilon);
     }
 
     @Test
-    public void depositReturnsACorrectBalance() {
-        Account account = new Account(100);        
-        account.deposit(50);
-        Assert.assertEquals(50, account.getBalance(), epsilon);
+    public void methodsReturnCorrectResults() {
+        Account account = new Account(100);
+        Assert.assertTrue(account.deposit(50));
+        Assert.assertTrue(account.withdraw(20));
+        Assert.assertFalse(account.withdraw(200)); // dépasse la limite
     }
 }
